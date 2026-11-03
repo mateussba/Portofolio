@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { education, profile, projects, skills } from '../data/portfolio';
+---
+<BaseLayout title={`${profile.name} — ${profile.role}`}>
+  <header class="site-header">
+    <a class="brand-logo" href="#inicio" aria-label="Mateus Bezerra, início"><img src="/images/mateus-bezerra-logo.png" alt="Mateus Bezerra" width="887" height="420" /></a>
+  </header>
+  <main id="conteudo">
+    <section id="inicio" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">{profile.role}</p>
+        <h1>{profile.headline}</h1>
+        <p class="hero-description">{profile.tagline}</p>
+      </div>
+      <div class="hero-wood"><img class="hero-portrait" src="/images/mateus-cutout-v2.png" alt="Retrato de Mateus Bezerra" width="1086" height="1448" fetchpriority="high" decoding="async" /></div>
+    </section>
+    <section id="projetos" class="projects-section" aria-label="Projetos selecionados">
+      <div class="projects-toolbar wrap">
+        <p class="eyebrow"><span>01 /</span> PROJETOS SELECIONADOS</p>
+        <div class="project-selector" role="group" aria-label="Escolher projeto">{projects.map((project, i) => <button type="button" data-project-select={project.id} aria-pressed={i === 0} aria-controls={`project-${project.id}`}>{project.title}</button>)}</div>
+        <span class="project-count sr-only" aria-live="polite">AquaMonitor</span>
+      </div>
+      <div class="project-showcase wrap">{projects.map(project => <ProjectCard project={project} />)}</div>
+    </section>
+    <section id="sobre" class="about-section wrap section-space">
+      <div class="about-heading reveal"><p class="eyebrow"><span>02 /</span> SOBRE MIM</p><h2>Sobre mim.</h2></div>
+      <div class="about-copy reveal"><p>{profile.about}</p><p class="stack-label">FERRAMENTAS QUE EXPLORO</p><ul class="skills">{skills.map(skill => <li>{skill}</li>)}</ul><a class="text-link" href="#contato">Onde me encontrar <span>↗</span></a></div>
+    </section>
+    <section id="formacao" class="education-section wrap section-space" aria-labelledby="education-title">
+      <div class="education-heading reveal"><p class="eyebrow"><span>03 /</span> FORMAÇÃO</p><h2 id="education-title">Aprendizado<br />em construção.</h2></div>
+      <div class="education-list">{education.map(course => <article class:list={['education-item', 'reveal', { 'education-item-harvard': course.institution.startsWith('Harvard') }]}>
+        <p class="education-status">{course.status}</p>
+        <h3>{course.title}</h3>
+        <p class="education-institution">{course.institution}</p>
+        <p class="education-location">{course.location}</p>
+        <p class="education-description">{course.description}</p>
+        <a class="text-link" href={course.url} target="_blank" rel="noopener noreferrer" aria-label={`Conhecer o curso ${course.title}`}>Conhecer o curso <span aria-hidden="true">↗</span></a>
+      </article>)}</div>
+    </section>
+    <section id="contato" class="contact-section section-space">
+      <div class="wrap reveal"><p class="eyebrow"><span>04 /</span> CONTATO</p><h2>Vamos conversar.</h2><div class="contact-bottom"><p>Fale comigo pelo WhatsApp.<br /><a class="contact-phone" href={profile.whatsapp} target="_blank" rel="noopener noreferrer">{profile.phone}</a></p><div class="contact-actions"><a class="feature-button primary" href={profile.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span></a><a class="feature-button" href={profile.github} target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></div></div>
+    </section>
+  </main>
+  <footer class="site-footer wrap"><a class="brand-logo" href="#inicio" aria-label="Mateus Bezerra, início"><img src="/images/mateus-bezerra-logo.png" alt="Mateus Bezerra" width="887" height="420" loading="lazy" /></a><p>© {new Date().getFullYear()}</p><div class="footer-links">{profile.github && <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}{profile.linkedin && <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>}<a href="#inicio">Voltar ao topo ↑</a></div></footer>
+</BaseLayout>
+<script>
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.featured-project'));
+  const selectors = document.querySelectorAll<HTMLButtonElement>('[data-project-select]');
+  selectors.forEach(button => button.addEventListener('click', () => {
+    cards.forEach(card => { card.hidden = card.dataset.project !== button.dataset.projectSelect; });
+    selectors.forEach(selector => selector.setAttribute('aria-pressed', String(selector === button)));
+    const announcement = document.querySelector('.project-count');
+    if (announcement) announcement.textContent = button.textContent;
+  }));
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => { el.classList.add('will-reveal'); observer.observe(el); });
+  }
+</script>
