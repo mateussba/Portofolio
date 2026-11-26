@@ -1,38 +1,35 @@
-# Portfólio — Mateus
+# Mateus Bezerra | Portfólio
 
-Base de portfólio em Astro e TypeScript, com CSS responsivo e sem framework JavaScript no navegador.
+Sou desenvolvedor web e estudante de Análise e Desenvolvimento de Sistemas na UniFAP, em Juazeiro do Norte (CE). Neste portfólio, reúno projetos que desenvolvi e compartilho minha formação e as tecnologias com que trabalho.
 
-## Desenvolvimento
+**[Acessar o portfólio](https://mateusbezerraa.vercel.app)** · [Perfil no GitHub](https://github.com/mateussba)
 
-Requer Node.js 22.12 ou superior.
+## Projetos em destaque
+
+| Projeto | O que faz | Link |
+| --- | --- | --- |
+| **AquaMonitor** | Protótipo acadêmico de monitoramento de alagamentos, com dashboard, alertas e simulação de dados via MQTT. | [Repositório](https://github.com/mateussba/AquaMonitor) |
+| **KMirra** | Plataforma para manicures e nail designers gerenciarem agenda, clientes e financeiro, com site próprio para receber agendamentos. | [Site](https://kmirra.com) |
+
+## Tecnologias do portfólio
+
+Site estático e responsivo, construído com **Astro**, **TypeScript** e **CSS**. O conteúdo do perfil, da formação e dos projetos fica em [src/data/portfolio.ts](src/data/portfolio.ts).
+
+## Como rodar localmente
+
+Requer Node.js 22.23.4 ou superior e npm 9.6.5 ou superior.
 
 ```bash
-npm install
+git clone https://github.com/mateussba/Portofolio.git
+cd Portofolio
+npm ci
 npm run dev
 ```
 
-Acesse o endereço local informado pelo Astro (normalmente http://localhost:4321).
+Acesse [localhost:4321](http://localhost:4321).
 
-```bash
-npm run check   # Verificação de tipos e componentes Astro
-npm run build   # Gera o site estático em dist/
-npm run preview # Visualiza o build localmente
-```
-
-## Personalização
-
-- `src/data/portfolio.ts`: nome, apresentação, sobre, tecnologias, contatos e projetos.
-- `src/pages/index.astro`: estrutura das seções e título principal.
-- `src/components/ProjectCard.astro`: card e ilustrações dos projetos.
-- `src/layouts/BaseLayout.astro`: documento HTML, metadados e tema inicial.
-- `src/styles/global.css`: cores, tipografia, layouts, animações e responsividade.
-- `public/favicon.svg`: ícone do site.
-- `public/images/wood-gray.png`: textura de madeira cinza fornecida pelo usuário, aplicada no site.
-- `public/images/walnut.webp`: textura original de nogueira, preservada como alternativa.
-- `design/wood-texture-prompt.txt`: prompt da textura.
-
-Os três projetos são exemplos visuais, não trabalhos reais. Substitua suas informações e adicione `url` e `source` para exibir os links. Os contatos ficam ocultos até que seus endereços sejam preenchidos. O texto sobre você e a lista de tecnologias também são sugestões para personalizar.
-
-Identidade visual em preto quente e marfim, com textura de madeira cinza fornecida pelo usuário. Inclui filtro de projetos, suporte a movimento reduzido, navegação por teclado e animações de entrada progressivas. O conteúdo continua visível sem JavaScript; filtros e animações dependem de JavaScript. O tema escuro é fixo para preservar essa identidade.
-
-As fontes DM Sans e Manrope são carregadas do Google Fonts, com fallback local. Não há backend, formulário de envio, analytics ou publicação configurados.
+| Comando | Função |
+| --- | --- |
+| `npm run check` | Verifica os tipos e componentes Astro. |
+| `npm run build` | Gera o site estático em `dist/`. |
+| `npm run preview` | Abre uma prévia local depois de `npm run build`. |
